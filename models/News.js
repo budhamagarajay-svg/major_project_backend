@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const newsSchema = new mongoose.Schema(
+const NewsSchema = new mongoose.Schema(
   {
     title: {
       type: String,
@@ -29,21 +29,12 @@ const newsSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-
-    image: {
-      type: String,
-      default: "",
-    },
-
-    status: {
-      type: String,
-      enum: ["active", "inactive"],
-      default: "active",
-    },
   },
   {
     timestamps: true,
   }
 );
 
-export default mongoose.model("News", newsSchema);
+const News = mongoose.model("News", NewsSchema);
+
+export default News;
