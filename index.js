@@ -13,7 +13,7 @@ import eventRoute from "./routes/eventRoute.js";
 import downloadRoute from "./routes/downloadRoute.js";
 import galaryRoute from "./routes/galleryRoute.js";
 import scholarshipRoutes from "./routes/scholarshipRoutes.js";
-
+import adminRoute from "./routes/adminRoute.js";
 dotenv.config();
 
 const app = express();
@@ -27,14 +27,14 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 app.use(
-    fileUpload({
-        limits: {},
-        abortOnLimit: true,
-        createParentPath: true,
-        useTempFiles: false,
-        safeFileNames: true,
-        preserveExtension: true,
-    })
+  fileUpload({
+    limits: {},
+    abortOnLimit: true,
+    createParentPath: true,
+    useTempFiles: false,
+    safeFileNames: true,
+    preserveExtension: true,
+  })
 );
 
 app.use("/uploads", express.static("uploads"));
@@ -54,35 +54,34 @@ app.use("/api/downloads", downloadRoute);
 app.use("/api/gallery", galaryRoute);
 
 app.use("/api/scholarships", scholarshipRoutes);
+app.use("/api/admin", adminRoute);
 
 app.get("/", (req, res) => {
-    res.status(200).json({
-        success: true,
-        message: "Backend Running Successfully",
-    });
+  res.status(200).json({
+    success: true,
+    message: "Backend Running Successfully",
+  });
 });
 
 app.use((req, res) => {
-    res.status(404).json({
-        success: false,
-        message: "Route Not Found",
-    });
+  res.status(404).json({
+    success: false,
+    message: "Route Not Found",
+  });
 });
 
 const MONGO_URI = process.env.MONGO_URI;
 
 mongoose
-    .connect(MONGO_URI)
-    .then(() => {
-        console.log("MongoDB Connected");
+  .connect(MONGO_URI)
+  .then(() => {
+    console.log("MongoDB Connected");
 
-        app.listen(port, () => {
-            console.log(
-                `Server Running on http://localhost:${port}`
-            );
-        });
-    })
-    .catch((error) => {
-        console.log("MongoDB Connection Failed");
-        console.log(error.message);
+    app.listen(port, () => {
+      console.log(`Server Running on http://localhost:${port}`);
     });
+  })
+  .catch((error) => {
+    console.log("MongoDB Connection Failed");
+    console.log(error.message);
+  });
