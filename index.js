@@ -28,6 +28,8 @@ app.use(cors());
 
 app.use(express.json());
 
+app.use(express.urlencoded({ extended: true }));
+
 app.use(morgan("dev"));
 
 app.use(
@@ -67,6 +69,7 @@ app.use((req, res) => {
   res.status(404).json({
     success: false,
     message: "Route Not Found",
+    path: req.originalUrl,
   });
 });
 
@@ -87,6 +90,7 @@ mongoose
     });
   })
   .catch((error) => {
-    console.log("MongoDB Connection Failed");
-    console.log(error.message);
+    console.error("MongoDB Connection Failed");
+    console.error(error.message);
+    process.exit(1);
   });
