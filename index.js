@@ -1,4 +1,3 @@
-
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -17,6 +16,7 @@ import scholarshipRoutes from "./routes/scholarshipRoutes.js";
 import adminRoute from "./routes/adminRoute.js";
 import feedbackRoute from "./routes/feedbackRoute.js";
 import facultyRoute from "./routes/facultyRoute.js";
+import studentPortalRoute from "./routes/studentPortalRoutes.js";
 
 dotenv.config();
 
@@ -44,26 +44,17 @@ app.use(
 app.use("/uploads", express.static("uploads"));
 
 app.use("/api/users", userRoute);
-
 app.use("/api/products", productRoute);
-
 app.use("/api/news", newsRoute);
-
 app.use("/api/notices", noticeRoute);
-
 app.use("/api/events", eventRoute);
-
 app.use("/api/downloads", downloadRoute);
-
 app.use("/api/gallery", galaryRoute);
-
 app.use("/api/scholarships", scholarshipRoutes);
-
 app.use("/api/admin", adminRoute);
-
 app.use("/api/feedback", feedbackRoute);
-
 app.use("/api/faculty", facultyRoute);
+app.use("/api/student-portal", studentPortalRoute);
 
 app.get("/", (req, res) => {
   res.status(200).json({
@@ -99,4 +90,3 @@ mongoose
     console.log("MongoDB Connection Failed");
     console.log(error.message);
   });
-
