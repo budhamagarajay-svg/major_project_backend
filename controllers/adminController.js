@@ -1,5 +1,6 @@
 import Admin from "../models/Admin.js";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 export const adminLogin = async (req, res) => {
   try {
@@ -21,8 +22,21 @@ export const adminLogin = async (req, res) => {
       });
     }
 
+    const token = jwt.sign(
+      {
+        userid: admin._id,
+        isAdmin: true,
+      },
+      "tokey",
+      {
+        expiresIn: "1d",
+      }
+    );
+
     res.status(200).json({
+      status: "success",
       message: "Admin login successful",
+      token,
       admin: {
         id: admin._id,
         name: admin.name,

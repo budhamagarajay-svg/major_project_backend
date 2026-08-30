@@ -1,3 +1,4 @@
+
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -14,6 +15,9 @@ import downloadRoute from "./routes/downloadRoute.js";
 import galaryRoute from "./routes/galleryRoute.js";
 import scholarshipRoutes from "./routes/scholarshipRoutes.js";
 import adminRoute from "./routes/adminRoute.js";
+import feedbackRoute from "./routes/feedbackRoute.js";
+import facultyRoute from "./routes/facultyRoute.js";
+
 dotenv.config();
 
 const app = express();
@@ -54,7 +58,12 @@ app.use("/api/downloads", downloadRoute);
 app.use("/api/gallery", galaryRoute);
 
 app.use("/api/scholarships", scholarshipRoutes);
+
 app.use("/api/admin", adminRoute);
+
+app.use("/api/feedback", feedbackRoute);
+
+app.use("/api/faculty", facultyRoute);
 
 app.get("/", (req, res) => {
   res.status(200).json({
@@ -72,6 +81,11 @@ app.use((req, res) => {
 
 const MONGO_URI = process.env.MONGO_URI;
 
+if (!MONGO_URI) {
+  console.error("MONGO_URI is not defined in .env file");
+  process.exit(1);
+}
+
 mongoose
   .connect(MONGO_URI)
   .then(() => {
@@ -85,3 +99,4 @@ mongoose
     console.log("MongoDB Connection Failed");
     console.log(error.message);
   });
+

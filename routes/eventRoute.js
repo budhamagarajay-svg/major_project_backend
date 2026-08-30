@@ -1,27 +1,23 @@
 import express from "express";
 
 import {
-    getEvents,
-    addEvent,
+  getEvents,
+  getSingleEvent,
+  addEvent,
+  updateEvent,
+  deleteEvent,
 } from "../controllers/eventController.js";
-
 
 const router = express.Router();
 
-
-console.log("EVENT ROUTE FILE LOADED");
-
-
 router.get("/", getEvents);
+
+router.get("/:id", getSingleEvent);
 
 router.post("/", addEvent);
 
+router.put("/:id", updateEvent);
 
-router.post("/test", (req, res) => {
-    res.json({
-        message: "EVENT POST ROUTE WORKING",
-    });
-});
-
+router.delete("/:id", deleteEvent);
 
 export default router;

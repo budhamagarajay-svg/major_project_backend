@@ -10,12 +10,12 @@ const NewsSchema = new mongoose.Schema(
 
     date: {
       type: String,
-      required: true,
+      default: "",
     },
 
     category: {
       type: String,
-      required: true,
+      default: "",
       trim: true,
     },
 
@@ -27,7 +27,7 @@ const NewsSchema = new mongoose.Schema(
 
     content: {
       type: String,
-      required: true,
+      default: "",
     },
   },
   {
