@@ -1,13 +1,16 @@
 import express from "express";
-
 import {
-  createFeedback,
   getFeedback,
+  createFeedback,
+  replyFeedback,
+  deleteFeedback,
 } from "../controllers/feedbackController.js";
 
 const router = express.Router();
 
-router.post("/", createFeedback);
 router.get("/", getFeedback);
+router.post("/", createFeedback);
+router.patch("/:id/reply", replyFeedback);
+router.delete("/:id", deleteFeedback);
 
 export default router;

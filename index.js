@@ -17,6 +17,8 @@ import adminRoute from "./routes/adminRoute.js";
 import feedbackRoute from "./routes/feedbackRoute.js";
 import facultyRoute from "./routes/facultyRoute.js";
 import studentPortalRoute from "./routes/studentPortalRoutes.js";
+import resultRoute from "./routes/resultRoute.js";
+import academicCalendarRoute from "./routes/academicCalendarRoute.js";
 
 dotenv.config();
 
@@ -24,10 +26,15 @@ const app = express();
 
 const port = process.env.PORT || 5000;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 app.use(express.json());
-
 app.use(express.urlencoded({ extended: true }));
 
 app.use(morgan("dev"));
@@ -56,7 +63,10 @@ app.use("/api/scholarships", scholarshipRoutes);
 app.use("/api/admin", adminRoute);
 app.use("/api/feedback", feedbackRoute);
 app.use("/api/faculty", facultyRoute);
+
 app.use("/api/student-portal", studentPortalRoute);
+app.use("/api/student-portal/results", resultRoute);
+app.use("/api/student-portal/academic-calendar", academicCalendarRoute);
 
 app.get("/", (req, res) => {
   res.status(200).json({
